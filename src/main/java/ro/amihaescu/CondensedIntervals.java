@@ -1,5 +1,11 @@
 package ro.amihaescu;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 public class CondensedIntervals {
 
     public static void main(String[] args) {
@@ -9,7 +15,7 @@ public class CondensedIntervals {
         System.out.println(result);
     }
 
-     static String condenseArray(int[] array) {
+    private static String condenseArray(int[] array) {
         boolean isSequence = false;
         StringBuilder sb = new StringBuilder();
         for (int index = 0; index < array.length; index++) {
@@ -27,6 +33,48 @@ public class CondensedIntervals {
             }
         }
         return sb.toString();
+    }
+
+    private static String condenseArrayStreams(int[] array) {
+        List<String> result = IntStream.of(array)
+                .boxed()
+                .collect(Collector.of(
+                        () -> {
+                            List<List<Integer>> list = new ArrayList<>();
+                            list.add(new ArrayList<>());
+                            return list;
+                        },
+                        (list, x) -> {
+                            List<Integer> inner = list.get(list.size() - 1);
+                            if (inner.size() == 0) {
+                                inner.add(x);
+                            } else {
+                                int lastElement = inner.get(inner.size() - 1);
+                                if (lastElement == x - 1) {
+                                    inner.add(x);
+                                } else {
+                                    List<Integer> oneMore = new ArrayList<>();
+                                    oneMore.add(x);
+                                    list.add(oneMore);
+                                }
+                            }
+                        },
+                        (left, right) -> {
+                            throw new IllegalArgumentException("No parallel!");
+                        },
+
+                        list -> {
+
+                            return list.stream()
+                                    .map(inner -> {
+                                        if (inner.size() > 1) {
+                                            return inner.get(0) + "-" + inner.get(inner.size() - 1);
+                                        }
+                                        return "" + inner.get(0);
+                                    }).collect(Collectors.toList());
+
+                        }));
+        return result.toString();
     }
 
     private static int diff(int[] array, int position) {
