@@ -1,4 +1,4 @@
-package ro.amihascu;
+package ro.amihaescu;
 
 import org.junit.jupiter.api.Test;
 import ro.amihaescu.Solution;
