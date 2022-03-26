@@ -29,7 +29,7 @@ public class LRUCache<K, V> implements Cache<K, V> {
                 newNode = this.doublyLinkedList.updateAndMoveToFront(node, item);
             } else {
                 if (this.size() >= this.size) {
-                    return this.evictElement();
+                    this.evictElement();
                 }
                 newNode = this.doublyLinkedList.add(item);
                 if (newNode.isEmpty()) {
@@ -43,15 +43,14 @@ public class LRUCache<K, V> implements Cache<K, V> {
         }
     }
 
-    private boolean evictElement() {
+    private void evictElement() {
         this.lock.writeLock().lock();
         try {
             var tail = doublyLinkedList.removeTail();
             if (tail.isEmpty()) {
-                return false;
+                return;
             }
             linkedListNodeMap.remove(tail.getElement().getKey());
-            return true;
         } finally {
             this.lock.writeLock().unlock();
         }
