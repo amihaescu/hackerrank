@@ -29,7 +29,7 @@ public class LRUCache<K, V> implements Cache<K, V> {
                 newNode = this.doublyLinkedList.updateAndMoveToFront(node, item);
             } else {
                 if (this.size() >= this.size) {
-                    this.evictElement();
+                    return this.evictElement();
                 }
                 newNode = this.doublyLinkedList.add(item);
                 if (newNode.isEmpty()) {
