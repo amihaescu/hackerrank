@@ -6,18 +6,18 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class DoublyLinkedList<T> {
 
-    private DummyNode<T> dummyNode;
+    private final DummyNode<T> dummyNode;
     private LinkedListNode<T> head;
     private LinkedListNode<T> tail;
     private AtomicInteger size;
-    private ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
+    private final ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
 
     public DoublyLinkedList() {
         this.dummyNode = new DummyNode<T>(this);
         clear();
     }
 
-    private void clear() {
+    public void clear() {
         this.lock.writeLock().lock();
         try {
             head = dummyNode;
@@ -25,11 +25,10 @@ public class DoublyLinkedList<T> {
             size = new AtomicInteger(0);
         } finally {
             this.lock.writeLock().unlock();
-            ;
         }
     }
 
-    private int size() {
+    public int size() {
         this.lock.readLock().lock();
         try {
             return size.get();
@@ -68,7 +67,7 @@ public class DoublyLinkedList<T> {
     public LinkedListNode<T> add(T value) {
         this.lock.writeLock().lock();
         try {
-            head = new Node<T>(value, head, this);
+            head = new Node<>(value, head, this);
             if (tail.isEmpty()) {
                 tail = head;
             }
