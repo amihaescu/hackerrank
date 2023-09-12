@@ -12,16 +12,21 @@ public class ZigZagConversion {
             if (numRows == 1) {
                 return s;
             }
+            int n = s.length();
+            int diff = 2 * (numRows - 1);
+            int secondIndex;
             var stringBuilder = new StringBuilder();
-            for (int index = 0; index < numRows; index++) {
-                int i = index;
-                while (i < s.length()) {
-                    stringBuilder.append(s.charAt(i));
-                    if (index == 0 || index == numRows - 1) {
-                        i += 2 * (numRows - 1) ;
-                    } else {
-                        i += 2 * (numRows - 1 - index);
+            for (int i = 0; i < numRows; i++) {
+                int index = i;
+                while (index < n) {
+                    stringBuilder.append(s.charAt(index));
+                    if (i != 0 && i != numRows - 1) {
+                        secondIndex = index + diff - 2 * i;
+                        if (secondIndex < n) {
+                            stringBuilder.append(s.charAt(secondIndex));
+                        }
                     }
+                    index += diff;
                 }
             }
             return stringBuilder.toString();
