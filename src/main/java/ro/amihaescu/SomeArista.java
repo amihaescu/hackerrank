@@ -38,17 +38,13 @@ public class SomeArista {
             for (int j = 0; j < matrix[i].length; j++) {
                 var letter = matrix[i][j];
                 var optionalChild = rootNode.getChild(letter);
-                if (optionalChild.isEmpty()) {
-                    continue;
-                } else {
+                if (optionalChild.isPresent()) {
                     var child = optionalChild.get();
                     for (int k = -1; k < 2; k++) {
                         for (int l = -1; l < 2; l++) {
                             if (k != 0 && l != 0) {
                                 var potentialChild = child.getChild(matrix[i + k][j + l]);
-                                if (potentialChild.isEmpty()) {
-                                    continue;
-                                } else {
+                                if (potentialChild.isPresent()) {
                                     // set direction to k,l -> i+k, j+l
                                     // itterate adding k,l until tree is empty or reached limits
                                     // print word if isLast == true
