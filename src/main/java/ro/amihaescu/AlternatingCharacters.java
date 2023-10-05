@@ -18,6 +18,10 @@ public class AlternatingCharacters {
     }
 
     public static void main(String[] args) {
-        System.out.println(alternatingCharacters("AAABBB"));
+        System.out.println(new StringBuilder().toString().contains("abc"));
+        System.out.println(alternatingCharacters("AAABBB")
+        );
     }
+
+
 }
