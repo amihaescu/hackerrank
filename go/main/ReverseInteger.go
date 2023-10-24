@@ -1,9 +1,5 @@
 package main
 
-import (
-	"fmt"
-)
-
 func reverse(x int) int {
 	result := 0
 	var num int
@@ -26,8 +22,4 @@ func reverse(x int) int {
 		return -result
 	}
 	return result
-}
-
-func main() {
-	fmt.Print(reverse(1534236469))
 }

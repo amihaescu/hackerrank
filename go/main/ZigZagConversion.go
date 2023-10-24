@@ -1,13 +1,8 @@
 package main
 
 import (
-	"fmt"
 	"strings"
 )
-
-func main() {
-	fmt.Print(convert("PAYPALISHIRING", 4))
-}
 
 func convert(s string, numRows int) string {
 	var result strings.Builder

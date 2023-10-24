@@ -15,7 +15,3 @@ func isPalindrome(x int) bool {
 	}
 	return true
 }
-
-func main() {
-	print(isPalindrome(10))
-}

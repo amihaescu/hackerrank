@@ -46,7 +46,3 @@ func returnResult(isNegative bool, result int) int {
 	}
 	return result
 }
-
-func main() {
-	print(myAtoi("  +  413"))
-}
